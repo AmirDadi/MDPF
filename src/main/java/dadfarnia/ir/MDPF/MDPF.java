@@ -1,4 +1,5 @@
 package dadfarnia.ir.MDPF;
+import com.sun.org.apache.regexp.internal.RE;
 import net.sf.javabdd.BDD;
 
 import java.io.FileNotFoundException;
@@ -85,7 +86,7 @@ public class MDPF {
      * @return ResultSet that shows action/probability per State
      */
     public ResultSet sat(String input){
-        ArrayList<String> variables = new ArrayList<String>(Arrays.asList(input.split("\\&|\\~|\\$|\\@|U|[0-9]+")));
+        ArrayList<String> variables = new ArrayList<String>(Arrays.asList(input.split("\\&|\\~|\\$|\\@|U|[0-9]+|\\|")));
         while(variables.remove(""));
         StringBuilder formula = new StringBuilder(input);
         return recParseFormula(formula, variables);
@@ -103,7 +104,7 @@ public class MDPF {
             bddService = new BDDService(variables_array);
             readTransitionJson(jsonObject);
         }catch(FileNotFoundException e){
-            System.out.println("File Not Found");
+            System.out.println("File " + fileName + " Not Found");
         }catch(ParseException p){
             System.out.println("File Format Problem");
             p.printStackTrace();
@@ -185,6 +186,14 @@ public class MDPF {
             ResultSet arg1 = recParseFormula(formula, variables);
             ResultSet arg2 = recParseFormula(formula, variables);
             return arg1.and(arg2);
+        }
+        else if(formula.charAt(0) == '|') {
+            formula.deleteCharAt(0);
+            ResultSet arg1 = recParseFormula(formula, variables);
+            ResultSet arg2 = recParseFormula(formula, variables);
+            ResultSet first = arg1.not();
+            ResultSet second = arg2.not();
+            return first.and(second).not();
         }
         else if(formula.charAt(0) == '@'){ // Next
             formula.deleteCharAt(0);

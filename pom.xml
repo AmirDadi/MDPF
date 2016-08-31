@@ -8,10 +8,11 @@
   <name>MDPF</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.4</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
@@ -20,12 +21,23 @@
       <artifactId>json-simple</artifactId>
       <version>1.1</version>
     </dependency>
-      <!-- https://mvnrepository.com/artifact/net.sf.jbddi/jbddi-core -->
+    <!-- https://mvnrepository.com/artifact/net.sf.jbddi/jbddi-core -->
     <dependency>
       <groupId>net.sf.jbddi</groupId>
         <artifactId>jbddi-core</artifactId>
         <version>1.0.1</version>
     </dependency>
-
   </dependencies>
+    <build>
+    <testResources>
+        <testResource>
+            <directory>src/test/resources</directory>
+        </testResource>
+    </testResources>
+        <resources>
+            <resource>
+                <directory>main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>

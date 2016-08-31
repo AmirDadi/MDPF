@@ -106,25 +106,28 @@ public class ResultSet {
      * @param condition any string with ">" or "=" or "<"
      * @param p double
      */
-    public void getProbability(String condition, double p){
+    public String getProbability(String condition, double p){
+
         if(p>1 || p<0) {
             System.out.println("Probability Should be between 0 and 1!");
-            return;
+            return "";
         }
-        System.out.print("{ ");
+        String result = "{ ";
         for(String name : results.keySet()){
             ArrayList<Transition> currentTransition = results.get(name);
             if(currentTransition.size() > 0){
                 for(Transition t : currentTransition){
                     if(condition.contains("<") && t.getProbability() < p)
-                        System.out.print("(" + name + "," + t  + ") ");
+                        result += "(" + name + "," + t  + ") ";
                     if(condition.contains(">") && t.getProbability() > p)
-                        System.out.print("(" + name + "," + t  + ") ");
+                        result += "(" + name + "," + t  + ") ";
                     if(condition.contains("=") && t.getProbability() == p)
-                        System.out.print("(" + name + "," + t  + ") ");
+                        result += "(" + name + "," + t  + ") ";
                 }
             }
         }
-        System.out.print(" } ");
+        result += "}";
+        return result;
     }
+
 }

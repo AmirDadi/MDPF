@@ -1,0 +1,77 @@
+{
+  "Propositions" : "M B A R U",
+  "States" : "s0 s1 s2 s3 s4",
+  "Transitions" : [
+    {
+      "Source" : "s0",
+      "Destination" : "s1",
+      "Label" : "start",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "$M"
+    },
+    {
+      "Source" : "s1",
+      "Destination" : "s1",
+      "Label" : "try",
+      "Probability" : 0.2,
+      "ApplicationCondition" : "$B"
+    },
+    {
+      "Source" : "s1",
+      "Destination" : "s2",
+      "Label" : "try",
+      "Probability" : 0.8,
+      "ApplicationCondition" : "$B"
+    },
+    {
+      "Source" : "s1",
+      "Destination" : "s2",
+      "Label" : "try",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "$A"
+    },
+    {
+      "Source" : "s1",
+      "Destination" : "s1",
+      "Label" : "wait",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "$A"
+    },
+    {
+      "Source" : "s2",
+      "Destination" : "s3",
+      "Label" : "send",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "$R"
+    },
+    {
+      "Source" : "s2",
+      "Destination" : "s3",
+      "Label" : "send",
+      "Probability" : 0.7,
+      "ApplicationCondition" : "&$U~$B"
+    },
+    {
+      "Source" : "s2",
+      "Destination" : "s4",
+      "Label" : "send",
+      "Probability" : 0.3,
+      "ApplicationCondition" : "&$U~$B"
+    },
+    {
+      "Source" : "s3",
+      "Destination" : "s0",
+      "Label" : "restart",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "$M"
+    },
+    {
+      "Source" : "s4",
+      "Destination" : "s1",
+      "Label" : "retry",
+      "Probability" : 1.0,
+      "ApplicationCondition" : "&$U~$B"
+    }
+  ]
+
+}
