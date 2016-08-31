@@ -71,10 +71,41 @@ public class MDPFTest {
     }
 
     @Test
-    public void testNextSatFunction(){
+    public void testNextSatFunction1(){
+        System.out.println("Print Result of 'Next send'");
         ResultSet result = mdpf.sat("@$send");
-        result.print();
         Assert.assertEquals(result.size(), 5);
+        Assert.assertEquals(result.get("s0").size(), 0);
+        Assert.assertEquals(result.get("s2").size(), 0);
+        Assert.assertEquals(result.get("s3").size(), 0);
+        Assert.assertEquals(result.get("s4").size(), 0);
+        Assert.assertEquals(result.get("s1").size(), 2);
+        Assert.assertTrue(result.get("s1").toString().contains("A/0.0"));
+        Assert.assertTrue(result.get("s1").toString().contains("B/0.8"));
+        System.out.println("All states except s1 have zero size");
     }
 
+    @Test
+    public void testNextSatFunction2(){
+        System.out.println("Print Result of 'Next wait'");
+        System.out.println("Result should be \n s0\n" +
+                "\tM/1.0\n" +
+                "s1\n" +
+                "\tB/0.2\n" +
+                "\tA/0.0\n" +
+                "s4\n" +
+                "\t(not B) and U/1.0");
+        ResultSet result = mdpf.sat("@$wait");
+        Assert.assertEquals(result.size(), 5);
+        Assert.assertEquals(result.get("s2").size(), 0);
+        Assert.assertEquals(result.get("s3").size(), 0);
+        Assert.assertEquals(result.get("s0").size(), 1);
+        Assert.assertEquals(result.get("s1").size(), 2);
+        Assert.assertEquals(result.get("s4").size(), 1);
+        Assert.assertTrue(result.get("s0").toString().contains("M/1.0"));
+        Assert.assertTrue(result.get("s1").toString().contains("A/0.0"));
+        Assert.assertTrue(result.get("s1").toString().contains("B/0.2"));
+        Assert.assertTrue(result.get("s4").toString().contains("1.0"));
+        System.out.println("Result asserted");
+    }
 }
