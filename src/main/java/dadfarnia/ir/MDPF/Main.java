@@ -14,7 +14,7 @@ public class Main {
         MDPF model = new MDPF("MDPFInput.json");
         model.print();
         System.out.println("###########");
-        ResultSet result = model.sat("|$try$send");
+        ResultSet result = model.sat("@$send");
         result.print();
         result.getProbability(">=", 0.8);
     }

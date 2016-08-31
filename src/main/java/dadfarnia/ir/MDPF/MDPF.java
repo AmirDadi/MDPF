@@ -199,7 +199,7 @@ public class MDPF {
             formula.deleteCharAt(0);
             ResultSet arg1 = recParseFormula(formula, variables);
             arg1 = multiply(arg1);
-            return arg1;
+            return arg1.removeZeros();
         }
         else if(formula.charAt(0) == 'U'){ // Bounded Until
             int count = 0 ;

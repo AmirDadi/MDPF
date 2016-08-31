@@ -123,4 +123,12 @@ public class Transition {
     public double getProbability(){
         return probability;
     }
+    public static boolean areAllZero(ArrayList<Transition> array){
+        for(Transition t: array){
+            if (t.probability != 0)
+                return false;
+        }
+        return true;
+
+    }
 }

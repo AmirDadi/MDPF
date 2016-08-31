@@ -129,5 +129,12 @@ public class ResultSet {
         result += "}";
         return result;
     }
-
+    public ResultSet removeZeros(){
+        for(String name: results.keySet()){
+            ArrayList<Transition> currentTransitions = results.get(name);
+            if(Transition.areAllZero(currentTransitions))
+                results.get(name).clear();
+        }
+        return this;
+    }
 }
