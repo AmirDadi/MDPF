@@ -31,9 +31,9 @@ public class State {
 
     /**
      * Given an action and a transition, add it to State.
-     * @param action
+     * @param action String, name of action
      * @param t transition
-     * @param destination
+     * @param destination String, name of destination state
      */
     public void addTransition(String action, Transition t, String destination){
         if(transitions.containsKey(action)){
@@ -59,11 +59,18 @@ public class State {
     public boolean hasAction(String label){
         return transitions.containsKey(label);
     }
+
+    /**
+     * get name of state
+     * @return String, name of state
+     */
     public String getName(){
         return name;
     }
 
-
+    /**
+     * Print State
+     */
     public void print(){
         for(String action : transitions.keySet()){
             System.out.println(action);
@@ -81,7 +88,11 @@ public class State {
         }
     }
 
-    //HashMap <String, HashMap<String,ArrayList<Transition>>> transitions; //<Action, <destination, Transition[]>>
+    /**
+     * Caclculate product of State and ResultSet (product of row of MDPF matrix and a columnar matrix)
+     * @param input ResultSet (columnar matrix)
+     * @return ArrayList of Transitions
+     */
     public ArrayList<Transition> multiply(ResultSet input){
         ArrayList<ArrayList<Transition>> results = new ArrayList<ArrayList<Transition>>();
         for(String action : transitions.keySet()){
