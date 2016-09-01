@@ -1,11 +1,14 @@
 package dadfarnia.ir.MDPF;
 import java.util.ArrayList;
 
-/**
- * Created by Dadi on 2016/6/5 AD.
- */
 import net.sf.javabdd.BDD;
 public class Utils {
+    /**
+     * Find in array of pairs
+     * @param array ArrayList<Pair<String, BDD>>
+     * @param key String
+     * @return int, position of key
+     */
     public static int findInArrayOfPairs(ArrayList<Pair<String, BDD>> array, String key){
         for(int i=0; i<array.size(); i++){
             if(array.get(i).getElement0().equals(key))
