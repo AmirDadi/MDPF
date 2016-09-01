@@ -1,5 +1,4 @@
 package dadfarnia.ir.MDPF;
-import com.sun.org.apache.regexp.internal.RE;
 import net.sf.javabdd.BDD;
 
 import java.io.FileNotFoundException;
