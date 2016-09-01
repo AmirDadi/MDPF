@@ -5,7 +5,7 @@ import org.junit.*;
 
 
 /**
- * Unit test for simple App.
+ * Unit test for MDPF
  */
 public class MDPFTest {
     MDPF mdpf;
