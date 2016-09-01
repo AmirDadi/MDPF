@@ -24,6 +24,30 @@ public class Transition {
         this.bddService = bddService;
     }
 
+    public static void minimize(ArrayList<ArrayList<Transition>> input){
+        if(input.size() != 2)
+            return;
+
+        ArrayList<Transition> transitions1 = input.get(0);
+        ArrayList<Transition> transitions2 = input.get(1);
+        for(int i=0; i<transitions1.size(); i++){
+            for(int j=0; j<transitions2.size(); j++){
+                Transition t1 = transitions1.get(i);
+                Transition t2 = transitions2.get(j);
+                if(t2.isWeaker(t1)) {
+                    transitions2.remove(t2);
+                    j--;
+                }
+                else if(t1.isWeaker(t2)) {
+                    transitions1.remove(t1);
+                    i--;
+                }
+            }
+        }
+
+        transitions1.addAll(transitions2);
+        input.remove(transitions2);
+    }
 
 
     public String toString(){
