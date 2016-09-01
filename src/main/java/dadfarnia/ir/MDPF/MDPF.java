@@ -244,8 +244,8 @@ public class MDPF {
 
     /**
      * Given a ResultSet, multiply this MDPF to ResultSet (According to multiplication defined in Article)
-     * @param sat
-     * @return
+     * @param sat ResultSet
+     * @return ResultSet of product
      */
     private ResultSet multiply(ResultSet sat){
         ResultSet result = new ResultSet(states, bddService);

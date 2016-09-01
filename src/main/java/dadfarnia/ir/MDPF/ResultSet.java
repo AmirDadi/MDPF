@@ -128,7 +128,7 @@ public class ResultSet {
 
     /**
      * return states and transitions that the input condition satisfies in string format.
-     *
+     * <i> e.g. { (u/0.0), (u and (not b)/0.8) } </i>
      * @param condition any string with ">" or "=" or "<"
      * @param p double
      * @return string of result
