@@ -14,9 +14,9 @@ public class Transition {
 
     /**
      * Transition Constructor
-     * @param applicationCondition
-     * @param probability
-     * @param bddService
+     * @param applicationCondition BDD
+     * @param probability double
+     * @param bddService BDDService
      */
     public Transition(BDD applicationCondition, double probability, BDDService bddService) {
         this.applicationCondition = applicationCondition;
@@ -24,6 +24,10 @@ public class Transition {
         this.bddService = bddService;
     }
 
+    /**
+     * Minimize a columnar matrix, as min function defined in page 7 of article
+     * @param input Arraylist of Arraylists of Transitions
+     */
     public static void minimize(ArrayList<ArrayList<Transition>> input){
         if(input.size() != 2)
             return;
@@ -121,9 +125,9 @@ public class Transition {
 
     /**
      * Calculate result of sum of two arraylist of transitions
-     * @param r1
-     * @param r2
-     * @return
+     * @param r1 ArrayList of Transitions
+     * @param r2 ArrayList of Transitions
+     * @return ArrayList of Transitions
      */
     public static ArrayList<Transition> sum(ArrayList<Transition> r1, ArrayList<Transition> r2){
         ArrayList<Transition> result = new ArrayList<Transition>();
@@ -136,17 +140,28 @@ public class Transition {
 
     /**
      * We say w is weaker than w' if the set of products satisfying w is a superset of the same set for w'.
-     * @param that
-     * @return weaker transition
+     * @param that Transition
+     * @return boolean, true if this is weaker transition
      */
     public boolean isWeaker(Transition that){
         if(bddService.isWeaker(this.applicationCondition, that.applicationCondition) && that.probability <= this.probability)
             return true;
         return false;
     }
+
+    /**
+     * get probability
+     * @return double
+     */
     public double getProbability(){
         return probability;
     }
+
+    /**
+     * Check if all probabilities are zero
+     * @param array ArrayList<Transitions>
+     * @return boolean, return true if all Transitions have zero probability
+     */
     public static boolean areAllZero(ArrayList<Transition> array){
         for(Transition t: array){
             if (t.probability != 0)
