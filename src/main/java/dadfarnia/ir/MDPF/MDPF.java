@@ -160,7 +160,7 @@ public class MDPF {
     private ArrayList<String> getStatesContainingAction(String label){
         ArrayList<String> result = new ArrayList<String>();
         for(State state: states){
-            if(state.hasAction(label)){
+            if(state.hasAction(label) || label.equals("True") && !label.equals("False")){
                 result.add(state.getName());
             }
         }

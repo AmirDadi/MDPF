@@ -24,6 +24,35 @@ public class MDPFTest {
         Assert.assertEquals(mdpf.getStates().size(), 5);
     }
 
+
+    @Test
+    public void testTrueSatResult(){
+        System.out.println("Print Result of 'True'");
+        ResultSet result = mdpf.sat("$True");
+        Assert.assertEquals(result.size(), 5);
+        Assert.assertEquals(result.get("s0").size(), 1);
+        Assert.assertEquals(result.get("s1").size(), 1);
+        Assert.assertEquals(result.get("s2").size(), 1);
+        Assert.assertEquals(result.get("s3").size(), 1);
+        Assert.assertEquals(result.get("s4").size(), 1);
+        Assert.assertEquals(result.get("s0").get(0).toString(), "T/1.0");
+        Assert.assertEquals(result.get("s1").get(0).toString(), "T/1.0");
+        Assert.assertEquals(result.get("s2").get(0).toString(), "T/1.0");
+        Assert.assertEquals(result.get("s3").get(0).toString(), "T/1.0");
+        Assert.assertEquals(result.get("s4").get(0).toString(), "T/1.0");
+    }
+    @Test
+    public void testFalseSatResult(){
+        System.out.println("Print Result of 'False'");
+        ResultSet result = mdpf.sat("$False");
+        Assert.assertEquals(result.size(), 5);
+        Assert.assertEquals(result.get("s0").size(), 0);
+        Assert.assertEquals(result.get("s1").size(), 0);
+        Assert.assertEquals(result.get("s2").size(), 0);
+        Assert.assertEquals(result.get("s3").size(), 0);
+        Assert.assertEquals(result.get("s4").size(), 0);
+    }
+
     @Test
     public void testSimpleSatResult1(){
         System.out.println("Print Result of 'Send'");
