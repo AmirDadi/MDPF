@@ -22,8 +22,7 @@ public class ResultSet {
         this.states = states;
         this.bddService = bddService;
         for(State state: states){
-            ArrayList<Transition> transition = new ArrayList<Transition>();
-            results.put(state.getName(), transition);
+            results.put(state.getName(), new ArrayList<Transition>());
         }
     }
 
@@ -32,7 +31,7 @@ public class ResultSet {
      * @param key the state name that True/value pair element will add
      * @param value the probability that should add
      */
-    public void setOne(String key, int value){
+    public void setApplicationConditionTrue(String key, int value){
         if(value == 1) {
             results.get(key).add(new Transition(bddService.getOne(), 1, bddService));
         }

@@ -123,7 +123,7 @@ public class MDPF {
             String action = (String) currentTransition.get("Label");
             Double probability = (Double) currentTransition.get("Probability");
             String applicationCondition = (String) currentTransition.get("ApplicationCondition");
-            BDD appCond = bddService.expToBDD(new StringBuilder(applicationCondition));
+            BDD appCond = bddService.expressionToBDD(new StringBuilder(applicationCondition));
             Transition transition = new Transition(appCond, probability, bddService);
             for(State state : states){
                 if(state.getName().equals(source))
@@ -172,7 +172,7 @@ public class MDPF {
             ArrayList<String> statesSatisfied = getStatesContainingAction(variables.remove(0));
             ResultSet result = new ResultSet(states, bddService);
             for(String state: statesSatisfied)
-                result.setOne(state, 1);
+                result.setApplicationConditionTrue(state, 1);
             return result;
         }
         else if(formula.charAt(0) == '~'){
@@ -232,7 +232,7 @@ public class MDPF {
             double probability = lineScan.nextDouble();
             String rest = lineScan.nextLine();
             StringBuilder sb = new StringBuilder(rest);
-            BDD appCond = bddService.expToBDD(sb);
+            BDD appCond = bddService.expressionToBDD(sb);
             Transition transition = new Transition(appCond, probability, bddService);
             for(State state : states){
                 if(state.getName().equals(source))

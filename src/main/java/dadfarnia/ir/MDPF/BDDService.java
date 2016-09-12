@@ -50,7 +50,7 @@ public class BDDService {
      * @param exp StringBuilder
      * @return BDD
      */
-    public BDD expToBDD(StringBuilder exp){
+    public BDD expressionToBDD(StringBuilder exp){
         for(int i=0; i<exp.length(); i++){
             char op = exp.charAt(0);
             String tmp = exp.substring(1);
@@ -59,16 +59,16 @@ public class BDDService {
             if(op == '$')
                 return propositions.get(Utils.findInArrayOfPairs(propositions,getName(exp))).getElement1();
             else if(op == '&'){
-                BDD firstArg = expToBDD(exp);
-                BDD secondArg = expToBDD(exp);
+                BDD firstArg = expressionToBDD(exp);
+                BDD secondArg = expressionToBDD(exp);
                 return firstArg.apply(secondArg, BDDFactory.and);
             }
             else if(op == '~'){
-                return expToBDD(exp).not();
+                return expressionToBDD(exp).not();
             }
             else if (op == '|'){
-                BDD firstArg = expToBDD(exp);
-                BDD secondArg = expToBDD(exp);
+                BDD firstArg = expressionToBDD(exp);
+                BDD secondArg = expressionToBDD(exp);
                 return firstArg.apply(secondArg, BDDFactory.or);
             }
         }
