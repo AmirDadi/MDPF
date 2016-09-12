@@ -3,6 +3,7 @@ import net.sf.javabdd.BDD;
 import net.sf.javabdd.BDDFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Binary Decision Diagrams (BDDs) are used for efficient computation of many common problems. <br>
@@ -43,6 +44,50 @@ public class BDDService {
                     return; //TODO throw exception
             propositions.add(new Pair<String, BDD>(variables[i], bdds[i]));
         }
+    }
+    public static boolean isOperand(char symbol){
+        if(symbol=='&' || symbol == '|' || symbol == ')' || symbol =='(' || symbol == '~')
+            return false;
+        return true;
+
+    }
+    public static String infixToPrefix(String exp){
+        exp = exp.replaceAll("\\s","");
+        Stack<Character> opStack = new Stack<Character>();
+        String prefix = "";
+        opStack.push('#');
+        exp  = new StringBuffer(exp).reverse().toString();
+        boolean isWord = false;
+        for(int i=0; i < exp.length(); i++){
+            char symbol = exp.charAt(i);
+            if(isOperand(symbol)){
+                isWord = true;
+                prefix += symbol;
+            }
+            else{
+                if(isWord)
+                    prefix += '$';
+                isWord = false;
+                if(symbol == ')')
+                    opStack.push(symbol);
+                else if (symbol == '('){
+                    while(opStack.peek() != ')'){
+                        prefix += opStack.pop();
+                    }
+                    opStack.pop();
+                }
+                else{
+                    opStack.push(symbol);
+                }
+            }
+
+        }
+        if(isWord)
+            prefix += '$';
+        while(opStack.peek() != '#')
+            prefix += opStack.pop();
+        prefix = new StringBuffer(prefix).reverse().toString();
+        return prefix;
     }
 
     /**

@@ -1,6 +1,11 @@
 package dadfarnia.ir.MDPF;
+
+import net.sf.jbddi.BDD;
+
 public class Main {
+
     public static void main(String[] args) {
+//        BDDService.infixToPrefix("(x1& x2)| (z&(~t1))");
         System.out.println("Start");
         MDPFExampleTest();
 //        MDPFUntilTest();

@@ -123,7 +123,7 @@ public class MDPF {
             String action = (String) currentTransition.get("Label");
             Double probability = (Double) currentTransition.get("Probability");
             String applicationCondition = (String) currentTransition.get("ApplicationCondition");
-            BDD appCond = bddService.expressionToBDD(new StringBuilder(applicationCondition));
+            BDD appCond = bddService.expressionToBDD(new StringBuilder(BDDService.infixToPrefix(applicationCondition)));
             Transition transition = new Transition(appCond, probability, bddService);
             for(State state : states){
                 if(state.getName().equals(source))
@@ -230,8 +230,9 @@ public class MDPF {
             String dest = lineScan.next();
             String action = lineScan.next();
             double probability = lineScan.nextDouble();
-            String rest = lineScan.nextLine();
-            StringBuilder sb = new StringBuilder(rest);
+            String expression = lineScan.nextLine();
+            expression = BDDService.infixToPrefix(expression);
+            StringBuilder sb = new StringBuilder(expression);
             BDD appCond = bddService.expressionToBDD(sb);
             Transition transition = new Transition(appCond, probability, bddService);
             for(State state : states){
